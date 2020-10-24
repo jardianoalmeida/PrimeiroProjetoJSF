@@ -10,6 +10,7 @@ import javax.faces.bean.NoneScoped;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
@@ -26,7 +27,8 @@ public class CatalogoLivrosBean implements Serializable{
 
 	private List<Livro> livros;
 	private Livro livro;
-	
+	private Livro livroSelecionado;
+
 	public CatalogoLivrosBean() {
 		this.livros = new ArrayList<Livro>();
 		this.livro = new Livro();
@@ -36,9 +38,19 @@ public class CatalogoLivrosBean implements Serializable{
 		this.livros.add(this.livro);
 		this.livro = new Livro();
 	}
+	
+	public void excluir() {
+		this.livros.remove(this.livroSelecionado);
+	}
 
 	public Livro getLivro() {
 		return livro;
+	}
+	
+	public void verificarInclusao(ActionEvent event) {
+		if ("".equals(this.livro.getAssunto())) {
+			this.livro.setAssunto("Sem Assuto!");
+		}
 	}
 
 	public String obterAjuda() {

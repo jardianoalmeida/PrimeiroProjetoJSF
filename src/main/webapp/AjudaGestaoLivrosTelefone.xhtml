@@ -12,7 +12,10 @@
 		Para obter mais ajuda, entre em contato com nosso suporte por telefone.<br/>
 		
 		<h:form>
-			<h:commandButton value="Voltar para o cadastro" action="CatalogoLivros?faces-redirect=true"/>
+			<h:commandButton value="Voltar para o cadastro" action="CatalogoLivros?faces-redirect=true">
+						<f:actionListener binding="#{registroCliqueBotaoListener}"/>
+		</h:commandLink>
+			
 		</h:form>
 	</h:body>
 </html>

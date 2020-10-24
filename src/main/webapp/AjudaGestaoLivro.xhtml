@@ -13,7 +13,10 @@
 		<h1>Você ainda não cadastrou nenhum livro</h1>
 			Informe os dados que precisam
 
-		<h:commandButton action="CatalogoLivros?faces-redirect=true" value="" /> value="Voltar para o cadastro" />
+		<h:commandButton action="CatalogoLivros?faces-redirect=true" value="Voltar para o cadastro" >
+					<f:actionListener binding="#{registroCliqueBotaoListener}"/>
+		</h:commandLink>
+		
 	</h:form>
 
 </h:body>
