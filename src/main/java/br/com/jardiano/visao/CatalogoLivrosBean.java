@@ -19,9 +19,9 @@ import br.com.jardiano.dominio.Livro;
 //none, request, view, session e application
 // @NoneScoped // Não guarda nada
 // @RequestScoped // Nada fica guardado na tela
-// @SessionScoped // Mant�m os dados salvos visiveis para todos os usuarios
+ @SessionScoped // Mant�m os dados salvos visiveis para todos os usuarios
 //@ViewScoped
-@ApplicationScoped
+//@ApplicationScoped
 public class CatalogoLivrosBean implements Serializable{
 
 	private List<Livro> livros;
@@ -41,6 +41,13 @@ public class CatalogoLivrosBean implements Serializable{
 		return livro;
 	}
 
+	public String obterAjuda() {
+		if(livros.isEmpty()) {
+			return "AjudaGestaoLivro?faces-redirect=true";
+		} else {
+			return "AjudaGestaoLivrosTelefone?faces-redirect=true";
+		}
+	}
 	public List<Livro> getLivros() {
 		return livros;
 	}
