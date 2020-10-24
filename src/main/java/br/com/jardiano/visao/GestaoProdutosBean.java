@@ -1,16 +1,24 @@
 package br.com.jardiano.visao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.NoneScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import br.com.jardiano.dominio.Produto;
 
 @ManagedBean
-@SessionScoped // Mantém os dados salvos visiveis para todos os usuarios
-public class GestaoProdutosBean {
+@NoneScoped // NÃ£o guarda nada
+// @RequestScoped // Nada fica guardado na tela
+// @SessionScoped // Mantï¿½m os dados salvos visiveis para todos os usuarios
+public class GestaoProdutosBean implements Serializable{
 
 	private List<Produto> produtos;
 	private Produto produto;
@@ -33,4 +41,13 @@ public class GestaoProdutosBean {
 		return produtos;
 	}
 	
+	@PostConstruct
+	public void inicializar() {
+		System.out.println("Inicializou bean");
+	}
+
+	@PreDestroy
+	public void finalizar() {
+		System.out.println("FinaSSlizou bean");
+	}
 }
