@@ -8,8 +8,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +20,7 @@ import org.hibernate.criterion.Order;
 import br.com.jardiano.model.Lancamento;
 import br.com.jardiano.model.Pessoa;
 import br.com.jardiano.model.TipoLancamento;
+import br.com.jardiano.util.FacesUtil;
 import br.com.jardiano.util.HibernateUtil;
 
 @ManagedBean
@@ -29,15 +32,15 @@ public class CadastroLancamentoBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		Session session = HibernateUtil.getSession();
+	
+		Session session = (Session) FacesUtil.getRequestAttribute("session");
+//		Session session = HibernateUtil.getSession();
 
 		// Pega no banco pra mim
 		this.pessoas = session.createCriteria(Pessoa.class)
-				// .addOrder(Order.asc("nome"))
+				.addOrder(Order.asc("nome"))
 				.list();
 
-		session.close();
-		// this.pessoas = gestaoPessoas.listarTodas();
 	}
 
 	public void lancamentoPagoModificado(ValueChangeEvent event) {
@@ -47,12 +50,9 @@ public class CadastroLancamentoBean implements Serializable {
 	}
 
 	public void cadastrar() {
-		Session session = HibernateUtil.getSession();
-		Transaction trx = session.beginTransaction();
+		Session session = (Session) FacesUtil.getRequestAttribute("session");
+
 		session.merge(this.lancamento);
-		
-		trx.commit();
-		session.close();
 		
 		System.out.println("Tipo: " + this.lancamento.getTipo());
 		System.out.println("Pessoa: " + this.lancamento.getPessoa().getNome());

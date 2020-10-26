@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 import br.com.jardiano.model.Pessoa;
+import br.com.jardiano.util.FacesUtil;
 import br.com.jardiano.util.HibernateUtil;
 
 @FacesConverter(forClass=Pessoa.class)
@@ -19,7 +20,7 @@ public class PessoaConverter implements Converter {
 		Pessoa retorno = null;
 		
 		if (value != null) {
-			Session session = HibernateUtil.getSession();
+			Session session = (Session) FacesUtil.getRequestAttribute("session");
 
 			// Pega no banco pra mim
 		    retorno = (Pessoa) session.get(Pessoa.class, new Integer(value));
