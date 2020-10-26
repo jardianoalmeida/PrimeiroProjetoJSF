@@ -84,7 +84,11 @@
 				
 				<h:column>
 					<h:graphicImage value="/imagens/editar.png"/>
-					<h:graphicImage value="/imagens/excluir.png"/>
+					<h:commandLink action="#{consultaLancamentoBean.excluir}">
+						<h:graphicImage value="/imagens/excluir.png"/>
+						<f:setPropertyActionListener target="#{consultaLancamentoBean.lancamentoSelecionado}" 
+							value="#{lancamento}"/>
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>
