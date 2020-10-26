@@ -11,10 +11,13 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+
 import br.com.jardiano.model.Lancamento;
 import br.com.jardiano.model.Pessoa;
 import br.com.jardiano.model.TipoLancamento;
-import br.com.jardiano.service.GestaoPessoas;
+import br.com.jardiano.util.HibernateUtil;
 
 @ManagedBean
 @ViewScoped
@@ -25,16 +28,23 @@ public class CadastroLancamentoBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		GestaoPessoas gestaoPessoas = new GestaoPessoas();
-		this.pessoas = gestaoPessoas.listarTodas();
+		Session session = HibernateUtil.getSession();
+
+		// Pega no banco pra mim
+		this.pessoas = session.createCriteria(Pessoa.class)
+				// .addOrder(Order.asc("nome"))
+				.list();
+
+		session.close();
+		// this.pessoas = gestaoPessoas.listarTodas();
 	}
-	
+
 	public void lancamentoPagoModificado(ValueChangeEvent event) {
 		this.lancamento.setPago((Boolean) event.getNewValue());
 		this.lancamento.setDataPagamento(null);
 		FacesContext.getCurrentInstance().renderResponse();
 	}
-	
+
 	public void cadastrar() {
 		System.out.println("Tipo: " + this.lancamento.getTipo());
 		System.out.println("Pessoa: " + this.lancamento.getPessoa().getNome());
@@ -45,12 +55,11 @@ public class CadastroLancamentoBean implements Serializable {
 		System.out.println("Data pagamento: " + this.lancamento.getDataPagamento());
 
 		this.lancamento = new Lancamento();
-		
+
 		String msg = "Cadastro efetuado com sucesso!";
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
 	}
-	
+
 	public TipoLancamento[] getTiposLancamentos() {
 		return TipoLancamento.values();
 	}
@@ -62,5 +71,5 @@ public class CadastroLancamentoBean implements Serializable {
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	
+
 }
