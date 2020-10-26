@@ -67,7 +67,7 @@ public class Lancamento implements Serializable {
 		this.valor = valor;
 	}
 	
-	@Column(name="data_vencimento")
+	@Column(name="data_vencimento") // Especificar nome 
 	public Date getDataVencimento() {
 		return dataVencimento;
 	}
