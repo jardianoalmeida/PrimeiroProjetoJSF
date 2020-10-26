@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.hibernate.Session;
@@ -18,6 +19,7 @@ import br.com.jardiano.util.FacesUtil;
 import br.com.jardiano.util.HibernateUtil;
 
 @ManagedBean
+//@SessionScoped
 public class ConsultaLancamentoBean implements Serializable {
 
 	private List<String> lancamentos = new ArrayList<String>();

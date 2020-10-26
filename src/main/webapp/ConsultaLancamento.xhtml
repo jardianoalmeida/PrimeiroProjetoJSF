@@ -18,6 +18,10 @@
 		<h:form id="frm">
 			<h:button value="Novo lançamento" outcome="CadastroLancamento" />
 
+			<h:messages showDetail="false" showSummary="true" 
+				styleClass="form-messages" errorClass="error"
+				infoClass="info" />
+
 			<h:dataTable var="lancamento" value="#{consultaLancamentoBean.lancamentos}"
 				width="100%" styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
 				columnClasses="tipo, pessoa, descricao, valor, vencimento, pagamento, situacao, acoes">
