@@ -9,6 +9,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 import br.com.jardiano.model.Pessoa;
+import br.com.jardiano.repository.Pessoas;
+import br.com.jardiano.repository.infra.PessoasHibernate;
 import br.com.jardiano.util.FacesUtil;
 import br.com.jardiano.util.HibernateUtil;
 
@@ -22,12 +24,8 @@ public class PessoaConverter implements Converter {
 		if (value != null) {
 			Session session = (Session) FacesUtil.getRequestAttribute("session");
 
-			// Pega no banco pra mim
-		    retorno = (Pessoa) session.get(Pessoa.class, new Integer(value));
-
-			session.close();
-//			GestaoPessoas gestaoPessoas = new GestaoPessoas();
-//			retorno = gestaoPessoas.buscarPorCodigo(new Integer(value));
+			Pessoas pessoas = new PessoasHibernate(session);
+			pessoas.porCodigo(new Integer(value));
 		}
 		
 		return retorno;

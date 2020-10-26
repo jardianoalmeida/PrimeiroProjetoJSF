@@ -15,35 +15,30 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 
 import br.com.jardiano.model.Lancamento;
+import br.com.jardiano.repository.Lancamentos;
 import br.com.jardiano.util.FacesUtil;
 import br.com.jardiano.util.HibernateUtil;
+import br.com.jardiano.util.Repositorios;
 
 @ManagedBean
 //@SessionScoped
 public class ConsultaLancamentoBean implements Serializable {
-
-	private List<String> lancamentos = new ArrayList<String>();
+	private Repositorios repositorios = new Repositorios();
+	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 	private Lancamento lancamentoSelecionado;
-
-	@SuppressWarnings("unchecked")
+	
 	@PostConstruct
 	public void inicializar() {
-		Session session = HibernateUtil.getSession();
-
-		this.lancamentos = session.createCriteria(Lancamento.class)
-				.addOrder(Order.desc("dataVencimento")).list();
-
-		session.close();
+		Lancamentos lancamentos = this.repositorios.getLancamentos();
+		this.lancamentos = lancamentos.todos();
 	}
 
 	public void excluir() {
 		if (this.lancamentoSelecionado.isPago()) {
 			FacesUtil.adicionarMensagem(FacesMessage.SEVERITY_ERROR, "Lançamento já foi pago e não pode ser excluído.");
 		} else {
-			Session session = (Session) FacesUtil.getRequestAttribute("session");
-			
-			session.delete(this.lancamentoSelecionado);
-			
+			Lancamentos lancamentos = this.repositorios.getLancamentos();
+			lancamentos.remover(this.lancamentoSelecionado);
 			
 			this.inicializar();
 			
@@ -51,10 +46,10 @@ public class ConsultaLancamentoBean implements Serializable {
 		}
 	}
 	
-	public List<String> getLancamentos() {
+	public List<Lancamento> getLancamentos() {
 		return lancamentos;
 	}
-	
+
 	public Lancamento getLancamentoSelecionado() {
 		return lancamentoSelecionado;
 	}
@@ -62,5 +57,5 @@ public class ConsultaLancamentoBean implements Serializable {
 	public void setLancamentoSelecionado(Lancamento lancamentoSelecionado) {
 		this.lancamentoSelecionado = lancamentoSelecionado;
 	}
-
+	
 }
