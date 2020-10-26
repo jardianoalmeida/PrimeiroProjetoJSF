@@ -23,7 +23,8 @@
 				columnClasses="tipo, pessoa, descricao, valor, vencimento, pagamento, situacao, acoes">
 				
 				<h:column>
-					<h:graphicImage value="/imagens/despesa.png"/>
+					<h:graphicImage value="/imagens/despesa.png" rendered="#{lancamento.tipo eq 'DESPESA'}" />
+					<h:graphicImage value="/imagens/receita.png" rendered="#{lancamento.tipo eq 'RECEITA'}" />
 				</h:column>
 				
 				<h:column>
@@ -31,7 +32,7 @@
 						Pessoa
 					</f:facet>
 					
-					<h:outputText value="Escola Infantil Abelha Amarela"/>
+					<h:outputText value="#{lancamento.pessoa.nome}"/>
 				</h:column>
 				
 				<h:column>
@@ -39,7 +40,7 @@
 						Descrição
 					</f:facet>
 					
-					<h:outputText value="Escola filhos"/>
+					<h:outputText value="#{lancamento.descricao}"/>
 				</h:column>
 				
 				<h:column>
@@ -47,7 +48,9 @@
 						Valor
 					</f:facet>
 				
-					<h:outputText value="R$ 720,00" styleClass="despesa" />
+					<h:outputText value="#{lancamento.valor}" styleClass="#{lancamento.tipo.toString().toLowerCase()}">
+						<f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+					</h:outputText>
 				</h:column>
 			
 				<h:column>
@@ -55,7 +58,9 @@
 						Vencimento
 					</f:facet>
 					
-					<h:outputText value="02/07/2012"/>
+					<h:outputText value="#{lancamento.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
 				</h:column>
 				
 				<h:column>
@@ -63,7 +68,9 @@
 						Pagamento
 					</f:facet>
 					
-					<h:outputText value="02/07/2012"/>
+					<h:outputText value="#{lancamento.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
 				</h:column>
 				
 				<h:column>
@@ -71,7 +78,8 @@
 						Situação
 					</f:facet>
 					
-					<h:outputText value="Pago" />
+					<h:outputText value="Pago" rendered="#{lancamento.pago}"/>
+					<h:outputText value="Aberto" rendered="#{not lancamento.pago}"/>
 				</h:column>
 				
 				<h:column>

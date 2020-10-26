@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 
 import br.com.jardiano.model.Lancamento;
@@ -46,6 +47,13 @@ public class CadastroLancamentoBean implements Serializable {
 	}
 
 	public void cadastrar() {
+		Session session = HibernateUtil.getSession();
+		Transaction trx = session.beginTransaction();
+		session.merge(this.lancamento);
+		
+		trx.commit();
+		session.close();
+		
 		System.out.println("Tipo: " + this.lancamento.getTipo());
 		System.out.println("Pessoa: " + this.lancamento.getPessoa().getNome());
 		System.out.println("Descrição: " + this.lancamento.getDescricao());
@@ -58,6 +66,7 @@ public class CadastroLancamentoBean implements Serializable {
 
 		String msg = "Cadastro efetuado com sucesso!";
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+		
 	}
 
 	public TipoLancamento[] getTiposLancamentos() {
