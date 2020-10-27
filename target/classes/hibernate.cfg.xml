@@ -22,7 +22,7 @@
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
 		
-		<mapping class="br.com.jardiano.model.Pessoa"/>
-		<mapping class="br.com.jardiano.model.Lancamento"/>
+		<mapping class="br.com.jardiano.financeiro.model.Pessoa"/>
+		<mapping class="br.com.jardiano.financeiro.model.Lancamento"/>
 	</session-factory>
 </hibernate-configuration>

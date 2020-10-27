@@ -7,7 +7,7 @@
     version="2.0">
 
 	<application>
-		<message-bundle>br.com.jardiano.resources.Messages</message-bundle>
+		<message-bundle>br.com.jardiano.financeiro.resources.Messages</message-bundle>
 	</application>
 
 </faces-config>
