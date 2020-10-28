@@ -11,7 +11,7 @@ import javax.faces.validator.ValidatorException;
 
 import com.sun.faces.util.MessageFactory;
 
-@FacesValidator("com.algaworks.DataFutura")
+@FacesValidator("br.com.jardiano.financeiro.validator.DataFutura")
 public class DataFuturaValidator implements Validator {
 
 	@Override
