@@ -9,7 +9,8 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/cursojsf?serverTimezone=UTC</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">j@rdi@n0</property>
-		
+<!-- 		<property name="hibernate.hbm2ddl.auto">create</property>
+ -->		
 		<!-- <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.username">postgres</property>
@@ -24,5 +25,6 @@
 		
 		<mapping class="br.com.jardiano.financeiro.model.Pessoa"/>
 		<mapping class="br.com.jardiano.financeiro.model.Lancamento"/>
+
 	</session-factory>
 </hibernate-configuration>
